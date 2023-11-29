@@ -10,6 +10,9 @@ This is an app that can help you send files using SMS (Short Message Service)
 
 ## Setup
 When you download the zip, or clone, run 
-```
+```console
 $ Yarn install
 ```
+
+## Contribution
+Feel free to do a PR or create an issue if you find one.
