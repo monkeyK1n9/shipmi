@@ -6,9 +6,8 @@ import { PrimaryButton, SecondaryButton } from '../../components/Button/Button';
 import { Spacer } from '../../components/Spacer/Spacer';
 import styled from 'styled-components/native'
 import * as FileSystem from 'expo-file-system'
-// import SmsAndroid from 'react-native-get-sms-android'
+import SmsAndroid from 'react-native-get-sms-android'
 import { theme } from '../../infrastructure/theme';
-var SmsAndroid = require('react-native-sms-android')
 
 const ContentView = styled(View)`
     align-items: center;
@@ -16,11 +15,11 @@ const ContentView = styled(View)`
 
 
 export const SendScreen = () => {
-    const [file, setFile] = useState()
-    const [phoneNumber, setPhoneNumber] = useState(null)
-    const [error, setError] = useState('')
-    const [message, setMessage] = useState()
-    const [isLoading, setIsLoading] = useState(false)
+    const [file, setFile] = useState<any>()
+    const [phoneNumber, setPhoneNumber] = useState<string>(null)
+    const [error, setError] = useState<any>('')
+    const [message, setMessage] = useState<string>()
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     
     //cache the file in the app before sending
     const uploadDocument = async () => {
