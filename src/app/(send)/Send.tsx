@@ -26,7 +26,7 @@ export const SendScreen = () => {
         try {
             const document = await DocumentPicker.getDocumentAsync()
             
-            if (document.type == 'cancel'){
+            if (document.canceled){
                 console.log('Cancelled')
                 return
             }
@@ -68,7 +68,7 @@ export const SendScreen = () => {
                 'sendDirect',
                 (err, msg) => {
                     if (err) {
-                        console.log('Failed with this error: ' + fail);
+                        console.log('Failed with this error: ' + err);
                         setIsLoading(false)
                         return
                     }
