@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Dimensions } from 'react-native';
-import { Spacer } from '../../../utils/Spacer';
+import { Spacer } from '../../components/Spacer/Spacer';
 
 
 export const ReceiveScreen = () => {

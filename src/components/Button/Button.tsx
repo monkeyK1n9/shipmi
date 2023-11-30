@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import { PrimaryButtonView, SecondaryButtonView } from './ButtonStyle';
-import {theme} from '../../../../infrastructure/theme'
+import {theme} from '../../infrastructure/theme'
 
 export const PrimaryButton = ({pressAction, title}) => {
     return (

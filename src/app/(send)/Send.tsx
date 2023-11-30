@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import * as DocumentPicker from 'expo-document-picker'
 import { View, Text, Image, Dimensions } from 'react-native';
 import {TextInput, ActivityIndicator} from 'react-native-paper'
-import { PrimaryButton, SecondaryButton } from '../components/Button/Button';
-import { Spacer } from '../../../utils/Spacer';
+import { PrimaryButton, SecondaryButton } from '../../components/Button/Button';
+import { Spacer } from '../../components/Spacer/Spacer';
 import styled from 'styled-components/native'
 import * as FileSystem from 'expo-file-system'
 // import SmsAndroid from 'react-native-get-sms-android'
-import { theme } from '../../../infrastructure/theme';
+import { theme } from '../../infrastructure/theme';
 var SmsAndroid = require('react-native-sms-android')
 
 const ContentView = styled(View)`
