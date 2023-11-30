@@ -14,8 +14,8 @@ const ContentView = styled(View)`
 `
 
 
-export const SendScreen = () => {
-    const [file, setFile] = useState<any>()
+export default function Send() {
+    const [file, setFile] = useState<any>(null)
     const [phoneNumber, setPhoneNumber] = useState<string>(null)
     const [error, setError] = useState<any>('')
     const [message, setMessage] = useState<string>()
@@ -48,10 +48,10 @@ export const SendScreen = () => {
         
     const convertAction = async (value) => {
         try {
-            const result = await FileSystem.readAsStringAsync(value.uri, {encoding: FileSystem.EncodingType.Base64})
+            const result = await FileSystem.readAsStringAsync(value.assets[0].uri, {encoding: FileSystem.EncodingType.Base64})
             
-            setMessage('result')
-            // console.log(result)
+            // setMessage('result')
+            console.log(result)
             // return result
         } catch(err) {
             console.error(err);
@@ -62,20 +62,33 @@ export const SendScreen = () => {
     const sendSMS = async () => {
         setIsLoading(true)
         try {
-            await SmsAndroid.sms(
-                phoneNumber,
-                "message",
-                'sendDirect',
-                (err, msg) => {
-                    if (err) {
-                        console.log('Failed with this error: ' + err);
-                        setIsLoading(false)
-                        return
-                    }
-                    console.log('SMS sent successfully', msg);
-                    setIsLoading(false)
-                },
-            );
+            if (phoneNumber == null || phoneNumber.length < 9) {
+                setError('Error: Please enter a valid 9 digits phone number')
+                return
+            }
+            else if(!file) {
+                setError('')
+                return alert('Please upload a document to send')
+            }
+
+            setError('')
+            await convertAction(file)
+
+            // await SmsAndroid.sms(
+            //     phoneNumber,
+            //     "message",
+            //     'sendDirect',
+            //     (err, msg) => {
+            //         if (err) {
+            //             console.log('Failed with this error: ' + err);
+            //             setIsLoading(false)
+            //             return
+            //         }
+            //         console.log('SMS sent successfully', msg);
+            //         setIsLoading(false)
+            //     },
+            // );
+            setIsLoading(false)
         }
         catch (e) {
             console.log(e)
@@ -102,6 +115,7 @@ export const SendScreen = () => {
                 )}
 
                 <Spacer size="large" />
+                <Spacer size="large" />
 
                 <Text style={{textAlign: 'center'}}>Press the upload button to upload the file you want to send</Text>
                 <Spacer size="large" />
@@ -109,9 +123,9 @@ export const SendScreen = () => {
                 {/* File preview display */}
                 {file && (
                     <>
-                        {file.mimeType.substring(0, 3) == "image" ? (
+                        {file?.mimeType?.substring(0, 3) == "image" ? (
                             <Image 
-                                source={file.uri} 
+                                source={file?.uri} 
                                 resizeMode={'center'}
                                 style={{
                                     maxWidth: 0.8*Dimensions.get('window').width,
@@ -120,7 +134,7 @@ export const SendScreen = () => {
                             />
                         ): file.mimeType == "application/pdf" ? (
                             <Image 
-                                source={require('../../../../assets/pdfLogo.jpeg')} 
+                                source={require('../../../assets/pdfLogo.jpeg')} 
                                 resizeMode={'center'}
                                 style={{
                                     maxWidth: 0.8*Dimensions.get('window').width,
@@ -129,7 +143,7 @@ export const SendScreen = () => {
                             />
                         ): (
                             <Image 
-                                source={require('../../../../assets/otherLogo.jpg')} 
+                                source={require('../../../assets/otherLogo.jpg')} 
                                 resizeMode={'center'}
                                 style={{
                                     maxWidth: 0.8*Dimensions.get('window').width,
@@ -155,20 +169,7 @@ export const SendScreen = () => {
 
                 <SecondaryButton 
                     title= {isLoading ? (<ActivityIndicator color={theme.colors.ui.primary} size={20}/>) : 'Send'}
-                    pressAction={() => {
-                        if (phoneNumber == null || phoneNumber.length < 9) {
-                            setError('Error: Please enter a valid 9 digits phone number')
-                            return
-                        }
-                        else if(!file) {
-                            setError('')
-                            return alert('Please upload a document to send')
-                        }
-
-                        setError('')
-                        convertAction(file)
-                        sendSMS()
-                    }}
+                    pressAction={sendSMS}
                 />
             </ContentView>
         </>

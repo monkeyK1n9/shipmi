@@ -18,5 +18,5 @@ export default function Index() {
     if (!fontsLoaded) return null;
 
 
-    return <Redirect href="(send)/send" />
+    return <Redirect href="(send)/Send" />
 }

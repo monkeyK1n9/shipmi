@@ -27,7 +27,14 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
+          <string>shipmi</string>
           <string>com.monkeyk1n9.shipmi</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>exp+shipmi</string>
         </array>
       </dict>
     </array>
@@ -48,6 +55,10 @@
         </dict>
       </dict>
     </dict>
+    <key>NSUserActivityTypes</key>
+    <array>
+      <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
+    </array>
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>
     <key>UIRequiredDeviceCapabilities</key>
